@@ -3,13 +3,12 @@
 #![feature(box_patterns)]
 
 extern crate prusti_contracts;
-use prusti_contracts::*;
 
 mod external_spec;
 mod range_inclusive;
-// mod passes;
-// mod failing;
-mod failing2;
+// mod with_concrete_type;
+// mod with_generic_type;
+mod without_option;
 
 fn main() {
 }

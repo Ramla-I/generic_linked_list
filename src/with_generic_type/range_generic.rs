@@ -3,7 +3,7 @@ use prusti_contracts::*;
 use core::ops::Deref;
 use crate::{
     range_inclusive::*,
-    failing::range_trait::*,
+    with_generic_type::range_trait::*,
 };
 
 /// A struct representing an unallocated region in memory.

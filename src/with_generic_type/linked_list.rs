@@ -1,7 +1,7 @@
 use prusti_contracts::*;
 
 use crate::external_spec::trusted_option::*;
-use crate::failing::range_trait::UniqueCheck;
+use crate::with_generic_type::range_trait::UniqueCheck;
 
 pub struct List<T> {
     head: Link<T>,

@@ -1,15 +1,12 @@
 //! Most of the List code is adapted from the Prusti user guide 
 //! https://viperproject.github.io/prusti-dev/user-guide/tour/summary.html
 
-
 use prusti_contracts::*;
-
 use crate::{
-    external_spec::{trusted_option::*, trusted_result::*},
-    failing2::range_trait::*,
+    external_spec::trusted_option::*,
+    without_option::range_trait::*
 };
-use core::{mem, marker::Copy, ops::Deref};
-
+use core::mem;
 
 pub struct List<T: UniqueCheck> {
     head: Link<T>,
@@ -30,15 +27,14 @@ pub(crate) struct Node<T: UniqueCheck> {
 #[requires(src.is_empty())]
 #[ensures(dest.is_empty())]
 #[ensures(old(dest.len()) == result.len())]
-#[ensures(forall(|i: usize| (0 <= i && i < result.len()) ==> 
+#[ensures(forall(|i: usize| (i < result.len()) ==> 
                 old(dest.lookup(i)) == result.lookup(i)))] 
-fn replace<T: UniqueCheck + Copy>(dest: &mut Link<T>, src: Link<T>) -> Link<T> {
+fn replace<T: UniqueCheck>(dest: &mut Link<T>, src: Link<T>) -> Link<T> {
     mem::replace(dest, src)
 }
 
 
-impl<T: UniqueCheck + Copy> List<T> {
-
+impl<T: UniqueCheck> List<T> {
     #[pure]
     pub fn len(&self) -> usize {
         self.head.len()
@@ -49,8 +45,8 @@ impl<T: UniqueCheck + Copy> List<T> {
     /// # Pre-conditions:
     /// * index is less than the length
     #[pure]
-    #[requires(0 <= index && index < self.len())]
-    pub fn lookup(&self, index: usize) -> T where T: Copy {
+    #[requires(index < self.len())]
+    pub fn lookup(&self, index: usize) -> T {
         self.head.lookup(index)
     }
 
@@ -82,49 +78,6 @@ impl<T: UniqueCheck + Copy> List<T> {
         self.head = Link::More(new_node);
     }
 
-    /// A push function that ensures there is no overlap of list elements, given that the list originally has no overlaps.
-    /// 
-    /// # Pre-conditions:
-    /// * list elements do not overlap
-    /// 
-    /// # Post-conditions:
-    /// * If the push fails, than the returned index is less than the list length
-    /// * If the push fails, then `elem` overlaps with the element at the returned index
-    /// * If the push succeeds, then new_length = old_length + 1
-    /// * If the push succeeds, then `elem` is added at index 0
-    /// * If the push succeeds, then all previous elements remain in the list, just moved one index forward
-    /// * If the push succeeds, then list elements do not overlap
-    #[requires(forall(|i: usize, j: usize| (0 <= i && i < self.len() && 0 <= j && j < self.len()) ==> 
-        (i != j ==> !self.lookup(i).overlaps(&self.lookup(j))))
-    )]
-    #[ensures(result.is_err() ==> peek_err(&result) < self.len())]
-    #[ensures(result.is_err() ==> {
-            let idx = peek_err(&result);
-            let range = self.lookup(idx);
-            range.overlaps(&elem)
-        }
-    )]
-    #[ensures(result.is_ok() ==> self.len() == old(self.len()) + 1)] 
-    #[ensures(result.is_ok() ==> self.lookup(0) == elem)]
-    #[ensures(result.is_ok() ==> forall(|i: usize| (1 <= i && i < self.len()) ==> old(self.lookup(i-1)) == self.lookup(i)))]
-    #[ensures(forall(|i: usize, j: usize| (0 <= i && i < self.len() && 0 <= j && j < self.len()) ==> 
-        (i != j ==> !self.lookup(i).overlaps(&self.lookup(j))))
-    )]
-    pub fn push_unique_with_precond(&mut self, elem: T) -> Result<(),usize> {
-        match self.elem_overlaps_in_list(elem, 0) {
-            Some(idx) => Err(idx),
-            None => {
-                // let new_node = Box::new(Node {
-                //     elem: elem,
-                //     next: replace(&mut self.head, Link::Empty)
-                // });
-                // self.head = Link::More(new_node);
-                self.push(elem);
-                Ok(())
-            }
-        }
-    }
-
     /// Removes element at index 0 from the list.
     /// 
     /// Post-conditions:
@@ -140,7 +93,7 @@ impl<T: UniqueCheck + Copy> List<T> {
     #[ensures(old(self.len()) > 0 ==> self.len() == old(self.len()-1))]
     #[ensures(old(self.len()) > 0 ==> *peek_option_ref(&result) == old(self.lookup(0)))]
     #[ensures(old(self.len()) > 0 ==>
-        forall(|i: usize| (0 <= i && i < self.len()) ==> old(self.lookup(i+1)) == self.lookup(i))
+        forall(|i: usize| (i < self.len()) ==> old(self.lookup(i+1)) == self.lookup(i))
     )]
     pub fn pop(&mut self) -> Option<T> {
         match replace(&mut self.head, Link::Empty) {
@@ -165,7 +118,7 @@ impl<T: UniqueCheck + Copy> List<T> {
     /// * if the result is Some(idx), then idx is less than the list's length.
     /// * if the result is Some(idx), then the element at idx overlaps with `elem`
     /// * if the result is None, then no element in the lists overlaps with `elem`
-    #[requires(0 <= index && index <= self.len())]
+    #[requires(index <= self.len())]
     #[ensures(result.is_some() ==> peek_option(&result) < self.len())]
     #[ensures(result.is_some() ==> {
             let idx = peek_option(&result);
@@ -206,7 +159,7 @@ impl<T: UniqueCheck> Link<T> {
     fn len(&self) -> usize {
         match self {
             Link::Empty => 0,
-            Link::More(box node) => 1 + node.next.len(),
+            Link::More(node) => 1 + node.next.len(),
         }
     }
 
@@ -214,7 +167,7 @@ impl<T: UniqueCheck> Link<T> {
     fn is_empty(&self) -> bool {
         match self {
             Link::Empty => true,
-            Link::More(box node) => false,
+            Link::More(node) => false,
         }
     }
 
@@ -223,11 +176,11 @@ impl<T: UniqueCheck> Link<T> {
     /// # Pre-conditions:
     /// * `index` is less than the list length
     #[pure]
-    #[requires(0 <= index && index < self.len())]
+    #[requires(index < self.len())]
     pub fn lookup(&self, index: usize) -> T {
         match self {
             Link::Empty => unreachable!(),
-            Link::More(box node) => {
+            Link::More(node) => {
                 if index == 0 {
                     node.elem
                 } else {

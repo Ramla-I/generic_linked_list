@@ -1,12 +1,12 @@
+pub mod linked_list_old;
 pub mod linked_list;
+pub mod range_generic;
 pub mod range_trait;
-pub mod frame_range;
-pub mod frame_chunk;
 
-use frame_range::FrameRange;
-use linked_list::List;
+use range_generic::Range;
+use linked_list_old::List;
 
-fn can_create_new(chunk_range: FrameRange, chunk_list: &mut List<FrameRange>) -> Result<(), usize> {
+fn can_create_new(chunk_range: Range, chunk_list: &mut List<Range>) -> Result<(), usize> {
     let overlap_idx = chunk_list.elem_overlaps_in_list(chunk_range, 0);
     if overlap_idx.is_some(){
         Err(overlap_idx.unwrap())

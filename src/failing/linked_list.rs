@@ -142,35 +142,25 @@ impl<T: UniqueCheck> List<T> {
         link_lookup_copy(&self.head, index)
     }
 
-    /// Returns the index of the first element in the list, starting from `index`, which overlaps with `elem`.
-    /// Returns None if there is no overlap.
-    /// 
-    /// # Pre-conditions:
-    /// * index is less than or equal to the list length
-    /// 
-    /// # Post-conditions:
-    /// * if the result is Some(idx), then idx is less than the list's length.
-    /// * if the result is Some(idx), then the element at idx overlaps with `elem`
-    /// * if the result is None, then no element in the lists overlaps with `elem`
     #[requires(0 <= index && index <= self.len())]
     #[ensures(result.is_some() ==> peek_option(&result) < self.len())]
     #[ensures(result.is_some() ==> {
             let idx = peek_option(&result);
             let range = self.lookup_copy(idx);
-            range.range_overlaps(&elem)
+            range.overlaps(&elem)
         }
     )]
     #[ensures(result.is_none() ==> 
         forall(|i: usize| (index <= i && i < self.len()) ==> {
             let range = self.lookup_copy(i);
-            !range.range_overlaps(&elem)
+            !range.overlaps(&elem)
         })
     )]
     pub(crate) fn elem_overlaps_in_list(&self, elem: T, index: usize) -> Option<usize> {
         if index == self.len() {
             return None;
         }
-        let ret = if self.lookup_copy(index).range_overlaps(&elem) {
+        let ret = if self.lookup_copy(index).overlaps(&elem) {
             Some(index)
         } else {
             self.elem_overlaps_in_list(elem, index + 1)

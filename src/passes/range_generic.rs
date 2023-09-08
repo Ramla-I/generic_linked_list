@@ -6,24 +6,16 @@ use crate::{
     passes::range_trait::*,
 };
 
-/// A struct representing an unallocated region in memory.
-/// Its functions are formally verified to prevent range overlaps between chunks.
 #[derive(Copy, Clone, PartialEq, Eq)]
 pub struct Range(RangeInclusive<usize>);
 
 impl UniqueCheck for Range {
     #[pure]
-    #[trusted]
-    fn range_overlaps(&self, other: &Self) -> bool {
+    #[trusted] // needs to be trusted to use comparison operators
+    fn overlaps(&self, other: &Self) -> bool {
         let starts = if self.start() > other.start() { self.start() } else { other.start() };
         let ends   = if self.end() < other.end() { self.end() } else { other.end() };
         starts <= ends
-    }
-
-    #[pure]
-    #[trusted]
-    fn equals(&self, other: &Self) -> bool {
-        self == other
     }
 }
 

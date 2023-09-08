@@ -3,7 +3,7 @@ use prusti_contracts::*;
 use core::ops::Deref;
 use crate::{
     range_inclusive::*,
-    with_concrete_type::range_trait::*,
+    with_option::range_trait::*,
 };
 
 #[derive(Copy, Clone, PartialEq, Eq)]

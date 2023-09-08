@@ -1,7 +1,7 @@
 use prusti_contracts::*;
 
 use crate::external_spec::trusted_option::*;
-use crate::with_generic_type::range_trait::UniqueCheck;
+use crate::with_option::range_trait::UniqueCheck;
 
 pub struct List<T> {
     head: Link<T>,
@@ -142,7 +142,7 @@ impl<T: UniqueCheck> List<T> {
         link_lookup_copy(&self.head, index)
     }
 
-    #[requires(0 <= index && index <= self.len())]
+    #[requires(index <= self.len())]
     #[ensures(result.is_some() ==> peek_option(&result) < self.len())]
     #[ensures(result.is_some() ==> {
             let idx = peek_option(&result);

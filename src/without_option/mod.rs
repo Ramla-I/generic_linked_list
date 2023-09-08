@@ -1,5 +1,4 @@
 pub mod linked_list_old;
-pub mod linked_list;
 pub mod range_generic;
 pub mod range_trait;
 

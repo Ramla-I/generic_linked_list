@@ -1,0 +1,107 @@
+thread 'rustc' panicked at vir/src/../gen/high/operations_internal/expression.rs:288:13:
+assertion `left == right` failed: _3 → m_with_generic_type$$linked_list$$link_lookup(_4, _6)
+  left: Reference(Reference { lifetime: LifetimeConst { name: "lft_erased" }, uniqueness: Shared, target_type: Struct(Struct { name: "struct$m_with_generic_type$$range_generic$$Range", arguments: [TypeVar(GenericType(GenericType { name: "U$0" }))], lifetimes: [] }) })
+ right: Reference(Reference { lifetime: LifetimeConst { name: "lft_erased" }, uniqueness: Shared, target_type: Struct(Struct { name: "struct$m_with_generic_type$$range_generic$$Range", arguments: [Struct(Struct { name: "struct$m_with_generic_type$$range_generic$$Range", arguments: [TypeVar(GenericType(GenericType { name: "U$0" }))], lifetimes: [] })], lifetimes: [] }) })
+stack backtrace:
+   0:     0x7f4ddc9ef16c - std::backtrace_rs::backtrace::libunwind::trace::h3c2e976dbdc1b990
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/../../backtrace/src/backtrace/libunwind.rs:93:5
+   1:     0x7f4ddc9ef16c - std::backtrace_rs::backtrace::trace_unsynchronized::h0110c0bfffda25e6
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/../../backtrace/src/backtrace/mod.rs:66:5
+   2:     0x7f4ddc9ef16c - std::sys_common::backtrace::_print_fmt::hcec321608a98a576
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/sys_common/backtrace.rs:67:5
+   3:     0x7f4ddc9ef16c - <std::sys_common::backtrace::_print::DisplayBacktrace as core::fmt::Display>::fmt::h5c588f6466e4fb19
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/sys_common/backtrace.rs:44:22
+   4:     0x7f4ddca5541c - core::fmt::rt::Argument::fmt::h6d08a5f4099d34a4
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/core/src/fmt/rt.rs:138:9
+   5:     0x7f4ddca5541c - core::fmt::write::h45c64b8d2a9a9a2a
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/core/src/fmt/mod.rs:1094:21
+   6:     0x7f4ddc9e1e6e - std::io::Write::write_fmt::hbe58e9fe4c6c3da0
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/io/mod.rs:1714:15
+   7:     0x7f4ddc9eef54 - std::sys_common::backtrace::_print::h70f23affa76188de
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/sys_common/backtrace.rs:47:5
+   8:     0x7f4ddc9eef54 - std::sys_common::backtrace::print::h636df8b2fa897446
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/sys_common/backtrace.rs:34:9
+   9:     0x7f4ddc9f204a - std::panicking::panic_hook_with_disk_dump::{{closure}}::h53d60c44900d65a9
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/panicking.rs:280:22
+  10:     0x7f4ddc9f1d08 - std::panicking::panic_hook_with_disk_dump::h168e84c6915dbc70
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/panicking.rs:307:9
+  11:     0x7f4ddfba46e9 - <rustc_driver_impl[f6531190ce97fe80]::install_ice_hook::{closure#0} as core[24fa0001083fe2a4]::ops::function::FnOnce<(&core[24fa0001083fe2a4]::panic::panic_info::PanicInfo,)>>::call_once::{shim:vtable#0}
+  12:     0x7f4ddc9f2913 - <alloc::boxed::Box<F,A> as core::ops::function::Fn<Args>>::call::hdaac845679a1a52d
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/alloc/src/boxed.rs:2021:9
+  13:     0x7f4ddc9f2913 - std::panicking::rust_panic_with_hook::h8bd3ac8993dc1838
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/panicking.rs:757:13
+  14:     0x7f4ddc9f2681 - std::panicking::begin_panic_handler::{{closure}}::h5324e8e54853ae0e
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/panicking.rs:631:13
+  15:     0x7f4ddc9ef696 - std::sys_common::backtrace::__rust_end_short_backtrace::hf15634b0dc7e7963
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/sys_common/backtrace.rs:170:18
+  16:     0x7f4ddc9f23c2 - rust_begin_unwind
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/panicking.rs:619:5
+  17:     0x7f4ddca517a5 - core::panicking::panic_fmt::hc476eccbf447ff3e
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/core/src/panicking.rs:72:14
+  18:     0x7f4ddca51d45 - core::panicking::assert_failed_inner::h4e66a2e488569a00
+  19:     0x55933795b58a - core::panicking::assert_failed::h45f568b9e2269208
+  20:     0x5593378f103a - vir::gen::high::operations_internal::expression::<impl vir::gen::high::ast::expression::Expression>::replace_place::h4fa052db40c10aae
+  21:     0x559335bd43c3 - prusti_viper::encoder::mir::pure::interpreter::state_high::ExprBackwardInterpreterState::substitute_value::h203bf0affc8ae86b
+  22:     0x5593362609d3 - prusti_viper::encoder::mir::pure::interpreter::interpreter_high::ExpressionBackwardInterpreter::encode_call_generic::hf8e394c0d4175e81
+  23:     0x55933621c1c2 - prusti_viper::encoder::mir::pure::interpreter::interpreter_high::ExpressionBackwardInterpreter::apply_call_terminator::hfd95c2b0ccc930ed
+  24:     0x559336262eeb - <prusti_viper::encoder::mir::pure::interpreter::interpreter_high::ExpressionBackwardInterpreter as prusti_viper::encoder::mir::pure::interpreter::backward_interpreter::BackwardMirInterpreter>::apply_terminator::h15fd0f0655d8a65d
+  25:     0x55933624cedc - prusti_viper::encoder::mir::pure::interpreter::backward_interpreter::run_backward_interpretation::hd91a08aa36d53a5c
+  26:     0x559335bd9fd5 - prusti_viper::encoder::mir::pure::pure_functions::encoder_high::PureEncoder::encode_function_decl::h08f733cec0166e8d
+  27:     0x559335af587e - prusti_viper::encoder::mir::pure::pure_functions::encoder_high::encode_function_decl::h13538fb066d063d9
+  28:     0x559335ab8a60 - <prusti_viper::encoder::encoder::Encoder as prusti_viper::encoder::mir::pure::pure_functions::interface::PureFunctionEncoderInterface>::encode_pure_function_def::{{closure}}::h30765c5b37ebefcb
+  29:     0x559335f2c0fb - <prusti_viper::encoder::encoder::Encoder as prusti_viper::encoder::mir::pure::pure_functions::interface::PureFunctionEncoderInterface>::encode_pure_function_def::hb4b08560f2b0adc3
+  30:     0x559335eb3f90 - <prusti_viper::encoder::encoder::Encoder as prusti_viper::encoder::mir::pure::pure_functions::interface::PureFunctionEncoderInterface>::ensure_pure_function_encoded::hce1d30b4d05f1f16
+  31:     0x559335e9765e - prusti_viper::encoder::encoder::Encoder::get_function::h6f7ddb3fbfa6eaac
+  32:     0x559335ab6066 - <prusti_viper::encoder::definition_collector::Collector as vir::gen::polymorphic::ast::expr_transformers::FallibleExprWalker>::fallible_walk_func_app::h02987f07c86c449e
+  33:     0x5593356494c8 - vir::gen::polymorphic::ast::expr_transformers::default_fallible_walk_expr::h5482e10d997107b4
+  34:     0x559335a2e62e - vir::gen::polymorphic::ast::expr_transformers::FallibleExprWalker::fallible_walk::h6542aa94a0afb78b
+  35:     0x559335a2ea93 - vir::gen::polymorphic::ast::expr_transformers::FallibleExprWalker::fallible_walk_bin_op::h68a905fa9861d5a2
+  36:     0x5593356493e7 - vir::gen::polymorphic::ast::expr_transformers::default_fallible_walk_expr::h5482e10d997107b4
+  37:     0x559335a2e62e - vir::gen::polymorphic::ast::expr_transformers::FallibleExprWalker::fallible_walk::h6542aa94a0afb78b
+  38:     0x559335a2ea93 - vir::gen::polymorphic::ast::expr_transformers::FallibleExprWalker::fallible_walk_bin_op::h68a905fa9861d5a2
+  39:     0x5593356493e7 - vir::gen::polymorphic::ast::expr_transformers::default_fallible_walk_expr::h5482e10d997107b4
+  40:     0x559335a2e62e - vir::gen::polymorphic::ast::expr_transformers::FallibleExprWalker::fallible_walk::h6542aa94a0afb78b
+  41:     0x559335a2ead8 - vir::gen::polymorphic::ast::expr_transformers::FallibleExprWalker::fallible_walk_bin_op::h68a905fa9861d5a2
+  42:     0x5593356493e7 - vir::gen::polymorphic::ast::expr_transformers::default_fallible_walk_expr::h5482e10d997107b4
+  43:     0x559335a2e62e - vir::gen::polymorphic::ast::expr_transformers::FallibleExprWalker::fallible_walk::h6542aa94a0afb78b
+  44:     0x559335ab55de - <prusti_viper::encoder::definition_collector::Collector as vir::gen::polymorphic::ast::stmt::FallibleStmtWalker>::fallible_walk_expr::h47206505745fa970
+  45:     0x559335a3060b - vir::gen::polymorphic::ast::stmt::FallibleStmtWalker::fallible_walk_inhale::h93938523b35adc7e
+  46:     0x559335a2fe5c - vir::gen::polymorphic::ast::stmt::FallibleStmtWalker::fallible_walk::h6500c0759c75190b
+  47:     0x559335e34dd1 - vir::gen::polymorphic::utils::fallible_walk_method::{{closure}}::h3a69a32f2f6fff42
+  48:     0x559335650678 - vir::gen::polymorphic::cfg::visitor::<impl vir::gen::polymorphic::cfg::method::CfgMethod>::fallible_walk_statements::h29ab025470e2e440
+  49:     0x559335e34cb9 - vir::gen::polymorphic::utils::fallible_walk_method::hfd3e225a49f2f69b
+  50:     0x559335e34f7e - vir::gen::polymorphic::utils::fallible_walk_methods::h165d1e5d214cdfd7
+  51:     0x559335aa48fb - prusti_viper::encoder::definition_collector::Collector::walk_methods::ha140552662d97207
+  52:     0x559335aa3d3e - prusti_viper::encoder::definition_collector::collect_definitions::h6428bf91627883c1
+  53:     0x559335e96e24 - prusti_viper::encoder::encoder::Encoder::finalize_viper_program::hbc5ed59e76508fb8
+  54:     0x559335f0118c - prusti_viper::encoder::encoder::Encoder::process_encoding_queue::h218148a15c7e2159
+  55:     0x5593359ffba3 - prusti_viper::verifier::Verifier::verify::hf32cbb091d771ede
+  56:     0x5593354da211 - prusti_driver::verifier::verify::he34dcc3cf4c53d59
+  57:     0x5593354d8b4d - <prusti_driver::callbacks::PrustiCompilerCalls as rustc_driver_impl::Callbacks>::after_analysis::{{closure}}::h98a4009c21c37418
+  58:     0x5593354cce98 - rustc_middle::ty::context::GlobalCtxt::enter::{{closure}}::h877816e873d261db
+  59:     0x5593354c46df - rustc_middle::ty::context::tls::enter_context::{{closure}}::h6e50cfee82eb1ac1
+  60:     0x5593354c997e - std::thread::local::LocalKey<T>::try_with::h327e4128519fa066
+  61:     0x5593354ccd12 - rustc_middle::ty::context::GlobalCtxt::enter::h4747bbe5ecbe5648
+  62:     0x5593354c84b2 - rustc_interface::queries::QueryResult<&rustc_middle::ty::context::GlobalCtxt>::enter::hcd9f122ba62cde0f
+  63:     0x5593354d85e0 - <prusti_driver::callbacks::PrustiCompilerCalls as rustc_driver_impl::Callbacks>::after_analysis::he93e787680239be4
+  64:     0x7f4ddf10d5ed - <rustc_interface[d416a657e7cfc335]::interface::Compiler>::enter::<rustc_driver_impl[f6531190ce97fe80]::run_compiler::{closure#1}::{closure#2}, core[24fa0001083fe2a4]::result::Result<core[24fa0001083fe2a4]::option::Option<rustc_interface[d416a657e7cfc335]::queries::Linker>, rustc_span[ace8cfa1528edb8a]::ErrorGuaranteed>>
+  65:     0x7f4ddf10a8f8 - std[2469b60e6bc2e71a]::sys_common::backtrace::__rust_begin_short_backtrace::<rustc_interface[d416a657e7cfc335]::util::run_in_thread_with_globals<rustc_interface[d416a657e7cfc335]::interface::run_compiler<core[24fa0001083fe2a4]::result::Result<(), rustc_span[ace8cfa1528edb8a]::ErrorGuaranteed>, rustc_driver_impl[f6531190ce97fe80]::run_compiler::{closure#1}>::{closure#0}, core[24fa0001083fe2a4]::result::Result<(), rustc_span[ace8cfa1528edb8a]::ErrorGuaranteed>>::{closure#0}::{closure#0}, core[24fa0001083fe2a4]::result::Result<(), rustc_span[ace8cfa1528edb8a]::ErrorGuaranteed>>
+  66:     0x7f4ddf10a075 - <<std[2469b60e6bc2e71a]::thread::Builder>::spawn_unchecked_<rustc_interface[d416a657e7cfc335]::util::run_in_thread_with_globals<rustc_interface[d416a657e7cfc335]::interface::run_compiler<core[24fa0001083fe2a4]::result::Result<(), rustc_span[ace8cfa1528edb8a]::ErrorGuaranteed>, rustc_driver_impl[f6531190ce97fe80]::run_compiler::{closure#1}>::{closure#0}, core[24fa0001083fe2a4]::result::Result<(), rustc_span[ace8cfa1528edb8a]::ErrorGuaranteed>>::{closure#0}::{closure#0}, core[24fa0001083fe2a4]::result::Result<(), rustc_span[ace8cfa1528edb8a]::ErrorGuaranteed>>::{closure#1} as core[24fa0001083fe2a4]::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+  67:     0x7f4ddc9fd375 - <alloc::boxed::Box<F,A> as core::ops::function::FnOnce<Args>>::call_once::hd0594b9d9cb5c0b5
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/alloc/src/boxed.rs:2007:9
+  68:     0x7f4ddc9fd375 - <alloc::boxed::Box<F,A> as core::ops::function::FnOnce<Args>>::call_once::hf28697dc7fe3505c
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/alloc/src/boxed.rs:2007:9
+  69:     0x7f4ddc9fd375 - std::sys::unix::thread::Thread::new::thread_start::h52e13871b2fbcbac
+                               at /rustc/2f5df8a94bb3c5fae4e3fcbfc8ef20f1f976cb19/library/std/src/sys/unix/thread.rs:108:17
+  70:     0x7f4ddb5e0609 - start_thread
+                               at /build/glibc-SzIz7B/glibc-2.31/nptl/pthread_create.c:477:8
+  71:     0x7f4ddb3b4133 - clone
+                               at /build/glibc-SzIz7B/glibc-2.31/misc/../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+  72:                0x0 - <unknown>
+
+
+rustc version: 1.74.0-nightly (2f5df8a94 2023-08-31)
+platform: x86_64-unknown-linux-gnu
+
+query stack during panic:
+end of query stack
